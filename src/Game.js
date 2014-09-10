@@ -29,9 +29,49 @@ BasicGame.Game.prototype = {
 	create: function () {
         var self = this;
 
-		this.score = 42;
+        this.game.physics.startSystem(Phaser.Physics.ARCADE);
+        this.game.physics.arcade.gravity.y = 1200;
+        // add the background sprite
+        this.background = this.game.add.sprite(0,0,'background');
 
-		this.add.sprite(0, 0, 'background');
+        // Create a new bird object
+        this.bird = new Rabbit(this.game, 222, this.game.height/2);
+        // and add it to the game
+        this.game.add.existing(this.bird);
+
+        // create and add a group to hold our pipeGroup prefabs
+        this.pipes = this.game.add.group();
+
+        // create and add a new Ground object
+        this.ground = new Ground(this.game, 0, 756, 640, 213);
+        this.game.add.existing(this.ground);
+
+        this.top = new Ground(this.game, 0, -10, this.game.width, 10);
+        this.game.add.existing(this.top);
+
+        this.instructionGroup = this.game.add.group();
+        this.instructionGroup.add(this.game.add.sprite(this.game.width/2, 100,'getReady'));
+        // this.instructionGroup.add(this.game.add.sprite(this.game.width/2, 325,'instructions'));
+        this.instructionGroup.setAll('anchor.x', 0.5);
+        this.instructionGroup.setAll('anchor.y', 0.5);
+
+        // keep the spacebar from propogating up to the browser
+        this.game.input.keyboard.addKeyCapture([Phaser.Keyboard.SPACEBAR]);
+        // add keyboard controls
+        this.flapKey = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+        this.flapKey.onDown.addOnce(this.startGame, this);
+        this.flapKey.onDown.add(this.bird.flap, this.bird);
+
+
+        // add mouse/touch controls
+        this.game.input.onDown.addOnce(this.startGame, this);
+        this.game.input.onDown.add(this.bird.flap, this.bird);
+
+        this.score = 0;
+
+        /*this.score = 42;
+
+        this.add.sprite(0, 0, 'background');
         var headY = 25 + 60 / 2;
         this.pauseButton = this.add.button(25 + (60 / 2), headY, 'pause', function() { self.pause(); });
         this.pauseButton.anchor.setTo(0.5, 0.5);
@@ -40,8 +80,19 @@ BasicGame.Game.prototype = {
 		this.add.existing(this.scoreboard);
 
         this.pauseboard = new Pauseboard(this.game);
-        this.add.existing(this.pauseboard);
+        this.add.existing(this.pauseboard);*/
 	},
+    startGame: function() {
+        this.bird.body.allowGravity = true;
+        this.bird.alive = true;
+
+        // add a timer
+        this.pipeGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * 1.25, this.generatePipes, this);
+        this.pipeGenerator.timer.start();
+
+        this.instructionGroup.destroy();
+        //  this.scoreText.visible = true;
+    },
 
     pause: function() {
         if (!this.game.soundMute) {
@@ -53,17 +104,68 @@ BasicGame.Game.prototype = {
 
         this.pauseboard.show();
     },
+    generatePipes: function() {
+        var pipeY = this.game.rnd.integerInRange(-100, 100);
+        var pipeGroup = this.pipes.getFirstExists(false);
+        if(!pipeGroup) {
+            pipeGroup = new PipeGroup(this.game, this.pipes);
+        }
+        pipeGroup.reset(this.game.width + pipeGroup.width/2, pipeY);
+    },
+    hitPipe: function() {
+        //this.pipeHitSound.play();
+        this.deathHandler();
+    },
+    hitGround: function() {
+        //this.groundHitSound.play();
+        this.deathHandler();
+    },
+    deathHandler: function() {
+        this.bird.alive = false;
+        this.pipes.forEach(function (pipeGroup) {
+            pipeGroup.setAll('body.velocity.x', 0);
+        }, this);
 
-	update: function () {
+        this.pipes.callAll('stop');
+        this.pipeGenerator.timer.stop();
+        this.ground.stopScroll();
 
-		//	Honestly, just about anything could go here. It's YOUR game after all. Eat your heart out!
-
-	},
+        this.state.start('Game');
+       /* this.scoreboard = new Scoreboard(this.game);
+        this.game.add.existing(this.scoreboard);
+        this.scoreboard.show(this.score);*/
+    },
+    checkScore: function(pipeGroup) {
+       /* if(pipeGroup.exists && !pipeGroup.hasScored && pipeGroup.topPipe.world.x <= this.bird.world.x) {
+            pipeGroup.hasScored = true;
+            this.score++;
+            this.scoreText.setText(this.score.toString());
+            this.scoreSound.play();
+        }*/
+    },
+    shutdown: function() {
+        this.game.input.keyboard.removeKey(Phaser.Keyboard.SPACEBAR);
+        this.bird.destroy();
+        this.pipes.destroy();
+        // this.scoreboard.destroy();
+    },
+    update: function() {
+        if (this.bird.alive) {
+            // enable collisions between the bird and the ground
+            this.game.physics.arcade.collide(this.bird, this.ground, this.hitGround, null, this);
+            this.game.physics.arcade.collide(this.bird, this.top, null, null, this);
+            // enable collisions between the bird and each group in the pipes group
+            this.pipes.forEach(function (pipeGroup) {
+                this.checkScore(pipeGroup);
+                this.game.physics.arcade.collide(this.bird, pipeGroup, this.hitPipe, null, this);
+            }, this);
+        }
+    },
 
 	quitGame: function (pointer) {
 
 		//	Here you should destroy anything you no longer need.
-		//	Stop music, delete sprites, purge caches, free resources, all that good stuff.
+		//	Stop mus,ic, delete sprites, purge caches, free resources, all that good stuff.
 
 		//	Then let's go back to the main menu.
 		this.state.start('MainMenu');

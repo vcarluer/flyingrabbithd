@@ -51,6 +51,10 @@ BasicGame.Preloader.prototype = {
 
         this.load.image('play', 'images/control-play.png');
 
+        this.load.image('getReady', 'images/get-ready.png');
+
+        this.load.spritesheet('pipe', 'images/pipes.png', 121,608,2);
+
        /* this.load.image('title', 'images/title.png');
         this.load.image('backgroundMenu', 'images/background_menu.png');
         this.load.image('play', 'images/control-play.png');

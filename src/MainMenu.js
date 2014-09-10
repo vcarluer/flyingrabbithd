@@ -24,7 +24,7 @@ BasicGame.MainMenu.prototype = {
         this.background = this.add.sprite(0, 0, 'background');
 
         this.ground = this.game.add.tileSprite(0, 756, 640, 213, 'ground');
-        this.ground.autoScroll(-200, 0);
+        this.ground.autoScroll(-444, 0);
 
         /** STEP 1 **/
             // create a group to put the title assets in
@@ -117,7 +117,7 @@ BasicGame.MainMenu.prototype = {
 	},
 
     startGameInternal: function() {
-        //this.state.start('Game');
+        this.state.start('Game');
     }
 
 };

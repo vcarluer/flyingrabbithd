@@ -12,6 +12,7 @@ var Rabbit = function(game, x, y, frame) {
     this.animations.play('flap', 12, true);
 
     this.game.physics.arcade.enableBody(this);
+    this.body.setSize(46, 46, 53 - 46, 0);
     this.body.allowGravity = false;
     this.alive = false;
     this.flapSound = this.game.add.audio('flap');
