@@ -15,24 +15,56 @@ BasicGame.MainMenu.prototype = {
 		//	Here all we're doing is playing some music and adding a picture and button
 		//	Naturally I expect you to do something significantly better :)
 
-		this.music = this.add.audio('titleMusic');
+		//this.music = this.add.audio('titleMusic');
         this.game.soundMute = false;
-        this.game.menuSelect = this.add.audio('menuSelect');
+       // this.game.menuSelect = this.add.audio('menuSelect');
 
 		// this.music.play();
 
-        this.background = this.add.sprite(0, 0, 'backgroundMenu');
-		var titlePaddingTop = 150;
-        this.title = this.add.sprite(this.game.width / 2, titlePaddingTop, 'title');
-        this.title.anchor.setTo(0.5, 0);
+        this.background = this.add.sprite(0, 0, 'background');
+
+        this.ground = this.game.add.tileSprite(0, 756, 640, 213, 'ground');
+        this.ground.autoScroll(-200, 0);
+
+        /** STEP 1 **/
+            // create a group to put the title assets in
+            // so they can be manipulated as a whole
+        this.titleGroup = this.game.add.group();
+
+        /** STEP 2 **/
+            // create the title sprite
+            // and add it to the group
+        this.title = this.game.add.sprite(0,0,'title');
+        this.titleGroup.add(this.title);
+
+        /** STEP 3 **/
+            // create the rabbit sprite
+            // and add it to the title group
+        this.rabbit = this.game.add.sprite(430,150,'rabbit');
+        this.titleGroup.add(this.rabbit);
+
+        /** STEP 4 **/
+            // add an animation to the rabbit
+            // and begin the animation
+        this.rabbit.animations.add('flap');
+        this.rabbit.animations.play('flap', 12, true);
+
+        /** STEP 5 **/
+            // Set the originating location of the group
+        this.titleGroup.x = 60;
+        this.titleGroup.y = 100;
+
+        /** STEP 6 **/
+            // create an oscillating animation tween for the group
+        this.game.add.tween(this.titleGroup).to({y:115}, 333, Phaser.Easing.Linear.NONE, true, 0, 1000, true);
 
         var soundX = 25, soundY = 25;
         this.soundButonOn = this.add.button(soundX, soundY, 'soundOn', function() { self.switchSound(); });
         this.soundButonOff = this.add.button(soundX, soundY, 'soundOff', function() { self.switchSound(); });
         this.soundButonOff.visible = false;
 
-		var playHeight = 200;
-		var playPadding = 40;
+		var playHeight = 102;
+		var playPadding = 160;
 		this.playButton = this.add.button(
 			this.game.width / 2,
 			this.game.height - playHeight / 2 - playPadding - this.game.paddingBot,
@@ -50,10 +82,12 @@ BasicGame.MainMenu.prototype = {
 
     switchSound: function () {
         this.game.soundMute = !this.game.soundMute;
-        if (!this.game.soundMute) {
-            this.music.resume();
-        } else {
-            this.music.pause();
+        if (this.music) {
+            if (!this.game.soundMute) {
+                this.music.resume();
+            } else {
+                this.music.pause();
+            }
         }
 
         this.soundButonOn.visible = !this.game.soundMute;
@@ -63,10 +97,12 @@ BasicGame.MainMenu.prototype = {
 	startGame: function (pointer) {
 
 		//	Ok, the Play Button has been clicked or touched, so let's stop the music (otherwise it'll carry on playing)
-		this.music.stop();
+		if (this.music) {
+            this.music.stop();
+        }
 
         if (!this.game.soundMute) {
-            this.game.menuSelect.play();
+            //this.game.menuSelect.play();
         }
 
         this.game.add.tween(this.playButton.scale).
@@ -81,7 +117,7 @@ BasicGame.MainMenu.prototype = {
 	},
 
     startGameInternal: function() {
-        this.state.start('Game');
+        //this.state.start('Game');
     }
 
 };

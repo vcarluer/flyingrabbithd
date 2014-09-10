@@ -38,6 +38,19 @@ BasicGame.Preloader.prototype = {
         this.load.image('ga', 'images/ga.png');
         this.load.audio('gaHeartbeat', ['audio/heartbeat.mp3', 'audio/heartbeat.ogg']);
 
+        this.load.image('soundOn', 'images/control-sound-on.png');
+        this.load.image('soundOff', 'images/control-sound-off.png');
+
+        // GAME
+        this.load.image('background', 'images/background.png');
+        this.load.image('ground', 'images/ground.png');
+        this.load.image('title', 'images/title.png');
+
+        this.load.spritesheet('rabbit', 'images/rabbit.png', 53, 53, 8);
+        this.load.audio('flap', 'audio/flap.wav');
+
+        this.load.image('play', 'images/control-play.png');
+
        /* this.load.image('title', 'images/title.png');
         this.load.image('backgroundMenu', 'images/background_menu.png');
         this.load.image('play', 'images/control-play.png');
@@ -67,19 +80,20 @@ BasicGame.Preloader.prototype = {
 
 	update: function () {
 
-		//	You don't actually need to do this, but I find it gives a much smoother game experience.
-		//	Basically it will wait for our audio file to be decoded before proceeding to the MainMenu.
-		//	You can jump right into the menu if you want and still play the music, but you'll have a few
-		//	seconds of delay while the mp3 decodes - so if you need your music to be in-sync with your menu
-		//	it's best to wait for it to decode here first, then carry on.
+		//	You don't actually need to do this,odes - so if you need your music to be in-sync with your menu
+		//	it's best to wait for it to decode but I find it gives a much smoother game experience.
+        //	Basically it will wait for our audio file to be decoded before proceeding to the MainMenu.
+        //	You can jump right into the menu if you want and still play the music, but you'll have a few
+        //	seconds of delay while the mp3 dec here first, then carry on.
 		
 		//	If you don't have any music in your game then put the game.state.start line into the create function and delete
 		//	the update function completely.
-		
-		if (this.cache.isSoundDecoded('titleMusic') && this.ready == false)
+
+        // this.cache.isSoundDecoded('titleMusic') &&
+		if (this.ready == false)
 		{
 			this.ready = true;
-			//this.state.start('GamersAssociate');
+			this.state.start('GamersAssociate');
 		}
 	}
 
