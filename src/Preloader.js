@@ -52,8 +52,12 @@ BasicGame.Preloader.prototype = {
         this.load.image('play', 'images/control-play.png');
 
         this.load.image('getReady', 'images/get-ready.png');
+		this.load.image('instructions', 'images/instructions.png');
 
         this.load.spritesheet('pipe', 'images/pipes.png', 121,608,2);
+
+		// http://kvazars.com/littera/
+		this.load.bitmapFont('gameFont', 'fonts/font.png', 'fonts/font.fnt');
 
        /* this.load.image('title', 'images/title.png');
         this.load.image('backgroundMenu', 'images/background_menu.png');

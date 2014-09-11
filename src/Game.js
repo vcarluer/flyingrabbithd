@@ -50,8 +50,8 @@ BasicGame.Game.prototype = {
         this.game.add.existing(this.top);
 
         this.instructionGroup = this.game.add.group();
-        this.instructionGroup.add(this.game.add.sprite(this.game.width/2, 100,'getReady'));
-        // this.instructionGroup.add(this.game.add.sprite(this.game.width/2, 325,'instructions'));
+		this.instructionGroup.add(this.game.add.sprite(this.game.width/2, 250,'instructions'));
+		this.instructionGroup.add(this.game.add.sprite(this.game.width/2, 100,'getReady'));
         this.instructionGroup.setAll('anchor.x', 0.5);
         this.instructionGroup.setAll('anchor.y', 0.5);
 
@@ -68,6 +68,9 @@ BasicGame.Game.prototype = {
         this.game.input.onDown.add(this.bird.flap, this.bird);
 
         this.score = 0;
+
+		this.scoreText = this.game.add.bitmapText(this.game.width/2, 10, 'gameFont',this.score.toString(), 24);
+		// this.scoreText.visible = false;
 
         /*this.score = 42;
 
