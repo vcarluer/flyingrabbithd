@@ -17,9 +17,11 @@ BasicGame.MainMenu.prototype = {
 
 		//this.music = this.add.audio('titleMusic');
         this.game.soundMute = false;
-       // this.game.menuSelect = this.add.audio('menuSelect');
+        this.menuSelect = this.add.audio('menuSelect');
 
-		// this.music.play();
+		if (this.music) {
+			this.music.play();
+		}
 
         this.background = this.add.sprite(0, 0, 'background');
 
@@ -59,8 +61,8 @@ BasicGame.MainMenu.prototype = {
         this.game.add.tween(this.titleGroup).to({y:115}, 333, Phaser.Easing.Linear.NONE, true, 0, 1000, true);
 
         var soundX = 25, soundY = 25;
-        this.soundButonOn = this.add.button(soundX, soundY, 'soundOn', function() { self.switchSound(); });
-        this.soundButonOff = this.add.button(soundX, soundY, 'soundOff', function() { self.switchSound(); });
+        this.soundButonOn = this.game.add.button(soundX, soundY, 'soundOn', function() { self.switchSound(); });
+        this.soundButonOff = this.game.add.button(soundX, soundY, 'soundOff', function() { self.switchSound(); });
         this.soundButonOff.visible = false;
 
 		var playHeight = 102;
@@ -75,9 +77,6 @@ BasicGame.MainMenu.prototype = {
 	},
 
 	update: function () {
-
-		//	Do some nice funky main menu effect here
-
 	},
 
     switchSound: function () {
@@ -95,29 +94,39 @@ BasicGame.MainMenu.prototype = {
     },
 
 	startGame: function (pointer) {
-
 		//	Ok, the Play Button has been clicked or touched, so let's stop the music (otherwise it'll carry on playing)
 		if (this.music) {
             this.music.stop();
         }
 
         if (!this.game.soundMute) {
-            //this.game.menuSelect.play();
+            this.menuSelect.play();
         }
 
         this.game.add.tween(this.playButton.scale).
             to( { x: 1.1, y: 1.1 }, 150, Phaser.Easing.Linear.None, true, 0, 0, true)
             .onComplete.add(this.startGameInternal, this);
-		//	And start the actual game
-		//this.state.start('Game');
-
-		/*this.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
-		this.scale.startFullScreen();*/
 
 	},
 
     startGameInternal: function() {
         this.state.start('Game');
-    }
+    },
+
+	shutdown: function() {
+		if (this.music) {
+			this.music.destroy();
+		}
+
+		this.menuSelect.destroy();
+		this.background.destroy();
+		this.ground.destroy();
+		this.title.destroy();
+		this.rabbit.destroy();
+		this.titleGroup.destroy();
+		this.soundButonOn.destroy();
+		this.soundButonOff.destroy();
+		this.playButton.destroy();
+	}
 
 };

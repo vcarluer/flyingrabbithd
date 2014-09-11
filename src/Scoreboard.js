@@ -1,91 +1,100 @@
 'use strict';
 var Scoreboard = function(game) {
-    var gameover;
+	var gameover;
 
-    Phaser.Group.call(this, game);
-	this.refWidth = 426;
-	this.refHeight = 639;
-	this.baseX = (this.game.width - this.refWidth) / 2;
-	this.paddingCol1 = 20;
-	this.paddingCol2 = 110;
-	this.col1X = this.baseX + this.paddingCol1;
-	this.col2X = this.baseX + this.paddingCol2;
+	Phaser.Group.call(this, game);
+	gameover = this.create(this.game.width / 2, 100, 'gameover');
+	gameover.anchor.setTo(0.5, 0.5);
 
-    /*gameover = this.create(this.game.width / 2, 100, 'gameover');
-    gameover.anchor.setTo(0.5, 0.5);*/
+	this.scoreboard = this.create(this.game.width / 2, 200, 'scoreboard');
+	this.scoreboard.anchor.setTo(0.5, 0.5);
 
-    this.scoreboard = this.create(this.game.width / 2, this.refHeight / 2, 'board');
-    this.scoreboard.anchor.setTo(0.5, 0.5);
+	this.scoreText = this.game.add.bitmapText(this.scoreboard.width, 180, 'gameFont', '', 34);
+	this.add(this.scoreText);
 
-    this.scoreText = this.game.add.bitmapText(this.scoreboard.width, this.col1X, 'gameFont', '', 18);
-    this.add(this.scoreText);
+	this.bestScoreText = this.game.add.bitmapText(this.scoreboard.width, 230, 'gameFont', '', 34);
+	this.add(this.bestScoreText);
 
-    this.bestScoreText = this.game.add.bitmapText(this.scoreboard.width, this.col2X, 'gameFont', '', 18);
-    this.add(this.bestScoreText);
-
-    // add our start button with a callback
-	this.startButton = this.game.add.button(325, 426 / 2, 'play', this.startClick, this, 2, 1, 0);
-    this.startButton.anchor.setTo(0.5,0.5);
+	// add our start button with a callback
+	this.startButton = this.game.add.button(this.game.width/2, 300, 'play', this.startClick, this);
+	this.startButton.anchor.setTo(0.5,0.5);
 
 	this.add(this.startButton);
 
-
-    // add our start button with a callback
-    this.pauseButton = this.game.add.button(550, 426 / 2 - 50, 'pause', this.pauseClick, this, 2, 1, 0);
-    this.pauseButton.anchor.setTo(0.5,0.5);
-
-    this.add(this.pauseButton);
-
-    // add our start button with a callback
-    this.homeButton = this.game.add.button(550, 426 / 2 + 50, 'home', this.homeClick, this, 2, 1, 0);
-    this.homeButton.anchor.setTo(0.5,0.5);
-
-    this.add(this.homeButton);
-
-
-	/*this.ga = this.game.add.button(this.game.width/2, 360, 'ga', this.gotoGA, this);
-	this.ga.anchor.setTo(0.5, 0);
-
-	this.add(this.ga);
-	 */
-    this.y = this.game.height;
-    this.x = 0;
+	this.y = this.game.height;
+	this.x = 0;
 };
 
 Scoreboard.prototype = Object.create(Phaser.Group.prototype);
 Scoreboard.prototype.constructor = Scoreboard;
 
 Scoreboard.prototype.update = function() {
-  
-  // write your prefab's specific update code here
-  
+
+	// write your prefab's specific update code here
+
 };
 
 Scoreboard.prototype.show = function(score) {
-    var medal, bestScore;
+	var medal, bestScore;
 
-    // Step 1
-    this.scoreText.setText(score.toString());
+	// Step 1
+	this.scoreText.setText(score.toString());
 
-    if(!!localStorage) {
-        // Step 2
-        bestScore = localStorage.getItem('bestScore');
+	if(!!localStorage) {
+		// Step 2
+		bestScore = localStorage.getItem('bestScore');
 
-        // Step 3
-        if(!bestScore || bestScore < score) {
-            bestScore = score;
-            localStorage.setItem('bestScore', bestScore);
-        }
-    } else {
-        // Fallback. LocalStorage isn't available
-        bestScore = 'N/A';
-    }
+		// Step 3
+		if(!bestScore || bestScore < score) {
+			bestScore = score;
+			localStorage.setItem('bestScore', bestScore);
+		}
+	} else {
+		// Fallback. LocalStorage isn't available
+		bestScore = 'N/A';
+	}
 
-    // Step 4
-    this.bestScoreText.setText(bestScore.toString());
-    this.game.add.tween(this).to({y: this.game.height / 2 - 426 / 2 - 64}, 1000, Phaser.Easing.Bounce.Out, true);
+	// Step 4
+	this.bestScoreText.setText(bestScore.toString());
+
+	// Step 5 & 6
+	// original flappy bird 10 copper 25 silver 50 gold
+	if(score >= 10 && score < 20)
+	{
+		medal = this.game.add.sprite(-65 , 7, 'medals', 0);
+		medal.anchor.setTo(0.5, 0.5);
+		this.scoreboard.addChild(medal);
+	} else if(score >= 20) {
+		medal = this.game.add.sprite(-65 , 7, 'medals', 1);
+		medal.anchor.setTo(0.5, 0.5);
+		this.scoreboard.addChild(medal);
+	}
+
+	// Step 7
+	if (medal) {
+
+		var emitter = this.game.add.emitter(medal.x, medal.y, 400);
+		this.scoreboard.addChild(emitter);
+		emitter.width = medal.width;
+		emitter.height = medal.height;
+
+		emitter.makeParticles('particle');
+
+		emitter.setRotation(-100, 100);
+		emitter.setXSpeed(0,0);
+		emitter.setYSpeed(0,0);
+		emitter.minParticleScale = 0.25;
+		emitter.maxParticleScale = 0.5;
+		emitter.setAll('body.allowGravity', false);
+
+		emitter.start(false, 1000, 1000);
+
+	}
+	this.game.add.tween(this).to({y: 0}, 1000, Phaser.Easing.Bounce.Out, true);
 };
 
 Scoreboard.prototype.startClick = function() {
-    this.game.state.start('Game');
+	this.game.state.start('Game');
 };
+
+// shutdown?

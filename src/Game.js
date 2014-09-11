@@ -69,21 +69,12 @@ BasicGame.Game.prototype = {
 
         this.score = 0;
 
-		this.scoreText = this.game.add.bitmapText(this.game.width/2, 10, 'gameFont',this.score.toString(), 24);
-		// this.scoreText.visible = false;
+		this.scoreText = this.game.add.bitmapText(this.game.width/2, 10, 'gameFont',this.score.toString(), 46);
+		this.scoreText.visible = false;
 
-        /*this.score = 42;
-
-        this.add.sprite(0, 0, 'background');
-        var headY = 25 + 60 / 2;
-        this.pauseButton = this.add.button(25 + (60 / 2), headY, 'pause', function() { self.pause(); });
-        this.pauseButton.anchor.setTo(0.5, 0.5);
-
-		this.scoreboard = new Scoreboard(this.game);
-		this.add.existing(this.scoreboard);
-
-        this.pauseboard = new Pauseboard(this.game);
-        this.add.existing(this.pauseboard);*/
+		this.scoreSound = this.game.add.audio('score');
+		this.pipeHitSound = this.game.add.audio('pipeHit');
+		this.groundHitSound = this.game.add.audio('groundHit');
 	},
     startGame: function() {
         this.bird.body.allowGravity = true;
@@ -94,18 +85,7 @@ BasicGame.Game.prototype = {
         this.pipeGenerator.timer.start();
 
         this.instructionGroup.destroy();
-        //  this.scoreText.visible = true;
-    },
-
-    pause: function() {
-        if (!this.game.soundMute) {
-            this.game.menuSelect.play();
-        }
-
-        this.game.add.tween(this.pauseButton.scale).
-            to( { x: 1.1, y: 1.1 }, 150, Phaser.Easing.Linear.None, true, 0, 0, true);
-
-        this.pauseboard.show();
+        this.scoreText.visible = true;
     },
     generatePipes: function() {
         var pipeY = this.game.rnd.integerInRange(-100, 100);
@@ -116,11 +96,11 @@ BasicGame.Game.prototype = {
         pipeGroup.reset(this.game.width + pipeGroup.width/2, pipeY);
     },
     hitPipe: function() {
-        //this.pipeHitSound.play();
+        this.pipeHitSound.play();
         this.deathHandler();
     },
     hitGround: function() {
-        //this.groundHitSound.play();
+        this.groundHitSound.play();
         this.deathHandler();
     },
     deathHandler: function() {
@@ -133,24 +113,25 @@ BasicGame.Game.prototype = {
         this.pipeGenerator.timer.stop();
         this.ground.stopScroll();
 
-        this.state.start('Game');
-       /* this.scoreboard = new Scoreboard(this.game);
+        this.scoreboard = new Scoreboard(this.game);
         this.game.add.existing(this.scoreboard);
-        this.scoreboard.show(this.score);*/
+        this.scoreboard.show(this.score);
     },
     checkScore: function(pipeGroup) {
-       /* if(pipeGroup.exists && !pipeGroup.hasScored && pipeGroup.topPipe.world.x <= this.bird.world.x) {
+        if(pipeGroup.exists && !pipeGroup.hasScored && pipeGroup.topPipe.world.x <= this.bird.world.x) {
             pipeGroup.hasScored = true;
             this.score++;
             this.scoreText.setText(this.score.toString());
             this.scoreSound.play();
-        }*/
+        }
     },
     shutdown: function() {
         this.game.input.keyboard.removeKey(Phaser.Keyboard.SPACEBAR);
         this.bird.destroy();
         this.pipes.destroy();
-        // this.scoreboard.destroy();
+        this.scoreboard.destroy();
+	    // MORE?
+
     },
     update: function() {
         if (this.bird.alive) {
@@ -163,15 +144,5 @@ BasicGame.Game.prototype = {
                 this.game.physics.arcade.collide(this.bird, pipeGroup, this.hitPipe, null, this);
             }, this);
         }
-    },
-
-	quitGame: function (pointer) {
-
-		//	Here you should destroy anything you no longer need.
-		//	Stop mus,ic, delete sprites, purge caches, free resources, all that good stuff.
-
-		//	Then let's go back to the main menu.
-		this.state.start('MainMenu');
-	}
-
+    }
 };

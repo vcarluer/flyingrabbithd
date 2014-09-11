@@ -38,52 +38,43 @@ BasicGame.Preloader.prototype = {
         this.load.image('ga', 'images/ga.png');
         this.load.audio('gaHeartbeat', ['audio/heartbeat.mp3', 'audio/heartbeat.ogg']);
 
-        this.load.image('soundOn', 'images/control-sound-on.png');
-        this.load.image('soundOff', 'images/control-sound-off.png');
-
         // GAME
+		this.load.image('soundOn', 'images/control-sound-on.png');
+		this.load.image('soundOff', 'images/control-sound-off.png');
+
         this.load.image('background', 'images/background.png');
         this.load.image('ground', 'images/ground.png');
         this.load.image('title', 'images/title.png');
-
-        this.load.spritesheet('rabbit', 'images/rabbit.png', 53, 53, 8);
-        this.load.audio('flap', 'audio/flap.wav');
-
-        this.load.image('play', 'images/control-play.png');
-
-        this.load.image('getReady', 'images/get-ready.png');
+		this.load.image('play', 'images/control-play.png');
 		this.load.image('instructions', 'images/instructions.png');
+		this.load.image('getReady', 'images/get-ready.png');
 
-        this.load.spritesheet('pipe', 'images/pipes.png', 121,608,2);
+		this.load.spritesheet('pipe', 'images/pipes.png', 121,608,2);
+        this.load.spritesheet('rabbit', 'images/rabbit.png', 53, 53, 8);
 
+		// TO CHANGE!!!!!!!!!
 		// http://kvazars.com/littera/
 		this.load.bitmapFont('gameFont', 'fonts/font.png', 'fonts/font.fnt');
 
-       /* this.load.image('title', 'images/title.png');
-        this.load.image('backgroundMenu', 'images/background_menu.png');
-        this.load.image('play', 'images/control-play.png');
-        this.load.audio('menuSelect', ['audio/menuselect.mp3', 'audio/menuselect.ogg']);
-        this.load.image('soundOn', 'images/control-sound-on.png');
-        this.load.image('soundOff', 'images/control-sound-off.png');
-        this.load.image('pause', 'images/control-pause.png');
-        this.load.image('home', 'images/control-home.png');
-        this.load.image('restart', 'images/control-restart.png');
+		this.load.audio('menuSelect', ['audio/menuselect.mp3', 'audio/menuselect.ogg']);
+		this.load.audio('score', 'audio/score.wav');
+		this.load.audio('flap', 'audio/flap.wav');
+		this.load.audio('pipeHit', 'audio/pipe-hit.wav');
+		this.load.audio('groundHit', 'audio/ground-hit.wav');
 
-		this.load.audio('titleMusic', ['audio/main_menu.mp3']);
-		this.load.bitmapFont('gameFont', 'fonts/desyrel-pink.png', 'fonts/desyrel-pink.xml');
-		//	+ lots of other required assets here
-		this.load.image('background', 'images/background.png');
-		this.load.image('board', 'images/board.png');
+		this.load.image('scoreboard', 'images/scoreboard.png');
+		this.load.image('gameover', 'images/gameover.png');
+		this.load.spritesheet('medals', 'images/medals.png', 44, 46, 2);
+		this.load.image('particle', 'images/particle.png');
 
-        // GAME
-        this.load.image('gameover', 'images/gameover.png');*/
+		// See update below if music is added
+		// this.load.audio('titleMusic', ['audio/main_menu.mp3']);
 	},
 
 	create: function () {
 
 		//	Once the load has finished we disable the crop because we're going to sit in the update loop for a short while as the music decodes
 		this.preloadBar.cropEnabled = false;
-
 	},
 
 	update: function () {
@@ -97,6 +88,8 @@ BasicGame.Preloader.prototype = {
 		//	If you don't have any music in your game then put the game.state.start line into the create function and delete
 		//	the update function completely.
 
+
+		// Add this if there is music
         // this.cache.isSoundDecoded('titleMusic') &&
 		if (this.ready == false)
 		{
