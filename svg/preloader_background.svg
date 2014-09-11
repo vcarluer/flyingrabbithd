@@ -15,7 +15,10 @@
    id="svg13154"
    version="1.1"
    inkscape:version="0.48.5 r10040"
-   sodipodi:docname="preloader_background.svg">
+   sodipodi:docname="preloader_background.svg"
+   inkscape:export-filename="C:\dev\html5\flyingrabbithd\images\preloader_background.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
   <defs
      id="defs13156">
     <linearGradient
@@ -157,6 +160,24 @@
        fx="322.84668"
        fy="173.01519"
        r="280.0498" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3949"
+       id="linearGradient4452"
+       gradientUnits="userSpaceOnUse"
+       x1="424.32812"
+       y1="254.39175"
+       x2="518.75781"
+       y2="254.39175" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3949"
+       id="linearGradient4454"
+       gradientUnits="userSpaceOnUse"
+       x1="424.32812"
+       y1="254.39175"
+       x2="518.75781"
+       y2="254.39175" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -165,9 +186,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.49497475"
-     inkscape:cx="165.6623"
-     inkscape:cy="644.00761"
+     inkscape:zoom="0.7"
+     inkscape:cx="440.16077"
+     inkscape:cy="540.90936"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -962,7 +983,7 @@
        xml:space="preserve"
        id="flowRoot3153"
        style="font-size:116px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:url(#linearGradient3963);fill-opacity:1;stroke:#000000;stroke-width:6.36111259;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:Brady Bunch Remastered;-inkscape-font-specification:Brady Bunch Remastered"
-       transform="matrix(1.3340981,-0.17515566,0.17515566,1.3340981,39.867601,-4.5423263)"><flowRegion
+       transform="matrix(1.3340981,-0.17515566,0.17515566,1.3340981,5.5818872,-10.256612)"><flowRegion
          id="flowRegion3155"
          style="fill:url(#linearGradient3973);fill-opacity:1;stroke:url(#radialGradient4023)"><rect
            id="rect3157"
@@ -986,8 +1007,8 @@
          id="flowPara3167"></flowPara></flowRoot>    <flowRoot
        xml:space="preserve"
        id="flowRoot4001"
-       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:url(#linearGradient4015);fill-opacity:1;stroke:#000000;stroke-width:4.0999999;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:Sans"
-       transform="matrix(1.2042032,0,0,1.2042032,-18.562925,109.70884)"><flowRegion
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:url(#linearGradient4454);fill-opacity:1;stroke:#000000;stroke-width:4.0999999;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:Sans"
+       transform="matrix(1.2042032,0,0,1.2042032,-52.848639,103.99455)"><flowRegion
          id="flowRegion4003"
          style="fill:url(#linearGradient4019);fill-opacity:1"><rect
            id="rect4005"
@@ -997,5 +1018,5 @@
            y="220"
            style="fill:url(#linearGradient4017);fill-opacity:1;stroke:#000000;stroke-width:4.0999999;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" /></flowRegion><flowPara
          id="flowPara4007"
-         style="font-size:100px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:url(#linearGradient4021);fill-opacity:1;stroke:#000000;stroke-width:4.0999999;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:Brady Bunch Remastered;-inkscape-font-specification:Brady Bunch Remastered">HD</flowPara></flowRoot>  </g>
+         style="font-size:100px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:url(#linearGradient4452);fill-opacity:1;stroke:#000000;stroke-width:4.0999999;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:Brady Bunch Remastered;-inkscape-font-specification:Brady Bunch Remastered">HD</flowPara></flowRoot>  </g>
 </svg>
