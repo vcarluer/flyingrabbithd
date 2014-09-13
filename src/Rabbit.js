@@ -8,7 +8,9 @@ var Rabbit = function(game, x, y, frame) {
     this.anchor.setTo(0.5, 0.5);
 
     // add and play animations
-    this.animations.add('flap');
+    this.animations.add('flap', [0,1,2,3,4,5,6,7], true, true);
+
+    this.animations.add('faint', [8], true, true);
     this.animations.play('flap', 12, true);
 
     this.game.physics.arcade.enableBody(this);
@@ -27,6 +29,10 @@ Rabbit.prototype.update = function() {
     if(this.angle < 90 && this.alive) {
         this.angle += 2.5;
     }
+};
+
+Rabbit.prototype.faint = function() {
+    this.animations.play('faint');
 };
 
 Rabbit.prototype.flap = function() {

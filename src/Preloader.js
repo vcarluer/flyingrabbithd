@@ -50,7 +50,7 @@ BasicGame.Preloader.prototype = {
 		this.load.image('getReady', 'images/get-ready.png');
 
 		this.load.spritesheet('pipe', 'images/pipes.png', 121,608,2);
-        this.load.spritesheet('rabbit', 'images/rabbit.png', 53, 53, 8);
+        this.load.spritesheet('rabbit', 'images/rabbit.png', 53, 53, 9);
 
 		// TO CHANGE!!!!!!!!!
 		// http://kvazars.com/littera/

@@ -48,7 +48,7 @@ BasicGame.MainMenu.prototype = {
         /** STEP 4 **/
             // add an animation to the rabbit
             // and begin the animation
-        this.rabbit.animations.add('flap');
+        this.rabbit.animations.add('flap', [0,1,2,3,4,5,6,7], true, true);
         this.rabbit.animations.play('flap', 12, true);
 
         /** STEP 5 **/

@@ -105,6 +105,7 @@ BasicGame.Game.prototype = {
     },
     deathHandler: function() {
         this.bird.alive = false;
+        this.bird.faint();
         this.pipes.forEach(function (pipeGroup) {
             pipeGroup.setAll('body.velocity.x', 0);
         }, this);
