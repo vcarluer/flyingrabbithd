@@ -33,23 +33,26 @@ BasicGame.MainMenu.prototype = {
             // so they can be manipulated as a whole
         this.titleGroup = this.game.add.group();
 
-        /** STEP 2 **/
-            // create the title sprite
-            // and add it to the group
-        this.title = this.game.add.sprite(0,0,'title');
-        this.titleGroup.add(this.title);
-
         /** STEP 3 **/
             // create the rabbit sprite
             // and add it to the title group
-        this.rabbit = this.game.add.sprite(430,150,'rabbit');
+        this.rabbit = this.game.add.sprite(-380,-140,'bigrabbit');
         this.titleGroup.add(this.rabbit);
+
+
+        /** STEP 2 **/
+            // create the title sprite
+            // and add it to the group
+        this.title = this.game.add.sprite(this.game.width / 2 + 15, 10,'title');
+        this.title.anchor.setTo(0.5, 0);
+        // this.titleGroup.add(this.title);
+
 
         /** STEP 4 **/
             // add an animation to the rabbit
             // and begin the animation
-        this.rabbit.animations.add('flap', [0,1,2,3,4,5,6,7], true, true);
-        this.rabbit.animations.play('flap', 12, true);
+        /*this.rabbit.animations.add('flap', [0,1,2,3,4,5,6,7], true, true);
+        this.rabbit.animations.play('flap', 12, true);*/
 
         /** STEP 5 **/
             // Set the originating location of the group
