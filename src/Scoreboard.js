@@ -62,7 +62,7 @@ Scoreboard.prototype.show = function(score) {
 
 	// Step 5 & 6
 	// original flappy bird 10 copper 25 silver 50 gold
-	if(score >= 0 && score < 25) {
+	if(score >= 10 && score < 25) {
 		medal = this.game.add.sprite(-80 , 192, 'medals', 0);
 		medal.anchor.setTo(0.5, 0.5);
 		this.scoreboard.addChild(medal);
