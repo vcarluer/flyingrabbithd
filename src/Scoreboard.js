@@ -67,11 +67,11 @@ Scoreboard.prototype.show = function(score) {
 		medal.anchor.setTo(0.5, 0.5);
 		this.scoreboard.addChild(medal);
 	} else if(score >= 25 && score < 50) {
-		medal = this.game.add.sprite(-92 , 190, 'medals', 1);
+		medal = this.game.add.sprite(-80 , 192, 'medals', 1);
 		medal.anchor.setTo(0.5, 0.5);
 		this.scoreboard.addChild(medal);
 	} else if(score >= 50) {
-        medal = this.game.add.sprite(-92 , 190, 'medals', 2);
+        medal = this.game.add.sprite(-80 , 192, 'medals', 2);
         medal.anchor.setTo(0.5, 0.5);
         this.scoreboard.addChild(medal);
     }

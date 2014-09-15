@@ -56,7 +56,6 @@ BasicGame.Boot.prototype = {
 		}
 
 		this.state.start('CheckOrientation');
-        this.enterIncorrectOrientation();
 	},
 
 	gameResized: function (width, height) {
