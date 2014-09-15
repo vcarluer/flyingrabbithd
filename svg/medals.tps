@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>3.4.0</string>
         <key>fileName</key>
-        <string>C:/dev/html5/flyingrabbithd/svg/rabbit.tps</string>
+        <string>C:/dev/html5/flyingrabbithd/svg/medals.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -38,7 +38,7 @@
         <key>dataFormat</key>
         <string>plain</string>
         <key>textureFileName</key>
-        <filename>../../tmp.png</filename>
+        <filename>../images/medals.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>ditherType</key>
@@ -72,9 +72,9 @@
         <key>maxTextureSize</key>
         <QSize>
             <key>width</key>
-            <int>2048</int>
+            <int>1024</int>
             <key>height</key>
-            <int>2048</int>
+            <int>1024</int>
         </QSize>
         <key>fixedTextureSize</key>
         <QSize>
@@ -128,11 +128,6 @@
         </struct>
         <key>dataFileNames</key>
         <map type="GFileNameMap">
-            <key>data</key>
-            <struct type="DataFile">
-                <key>name</key>
-                <filename></filename>
-            </struct>
             <key>header</key>
             <struct type="DataFile">
                 <key>name</key>
@@ -184,15 +179,9 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>a1.png</filename>
-            <filename>a2.png</filename>
-            <filename>a3.png</filename>
-            <filename>a4.png</filename>
-            <filename>a5.png</filename>
-            <filename>a6.png</filename>
-            <filename>a7.png</filename>
-            <filename>a8.png</filename>
-            <filename>rabbit_faint.png</filename>
+            <filename>1-medalbronze.png</filename>
+            <filename>2-medalsilver.png</filename>
+            <filename>3-medalgold.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

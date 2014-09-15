@@ -60,7 +60,7 @@ BasicGame.Game.prototype = {
         // add keyboard controls
         this.flapKey = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
         this.flapKey.onDown.addOnce(this.startGame, this);
-        this.flapKey.onDown.add(this.bird.flap, this.bird);
+        this.flapKey.onDown.add(this.pressSpace, this);
 
 
         // add mouse/touch controls
@@ -69,13 +69,44 @@ BasicGame.Game.prototype = {
 
         this.score = 0;
 
-		this.scoreText = this.game.add.bitmapText(this.game.width/2, 10, 'gameFont',this.score.toString(), 46);
-		this.scoreText.visible = false;
+        this.scoreGroup = this.game.add.group()
+        this.scoreStar = this.game.add.sprite(this.game.width/2 - 25, 12, 'star');
+		this.scoreText = this.game.add.bitmapText(this.game.width/2 + 25, 0, 'gameFont',this.score.toString(), 46);
+
+        this.scoreGroup.add(this.scoreStar);
+        this.scoreGroup.add(this.scoreText);
+        this.scoreGroup.setAll('visible', false);
 
 		this.scoreSound = this.game.add.audio('score');
 		this.pipeHitSound = this.game.add.audio('pipeHit');
 		this.groundHitSound = this.game.add.audio('groundHit');
+
+        var soundX = 25, soundY = 25;
+        this.soundButonOn = this.game.add.button(soundX, soundY, 'soundOn', function() { self.switchSound(); });
+        this.soundButonOff = this.game.add.button(soundX, soundY, 'soundOff', function() { self.switchSound(); });
+        this.soundButonOn.visible = false;
+        this.soundButonOff.visible = false;
 	},
+    pressSpace: function () {
+      if (this.bird.alive) {
+          this.bird.flap();
+      }   else {
+          this.scoreboard.startClick();
+      }
+    },
+    switchSound: function () {
+        this.game.soundMute = !this.game.soundMute;
+        if (this.music) {
+            if (!this.game.soundMute) {
+                this.music.resume();
+            } else {
+                this.music.pause();
+            }
+        }
+
+        this.soundButonOn.visible = !this.game.soundMute;
+        this.soundButonOff.visible = this.game.soundMute;
+    },
     startGame: function() {
         this.bird.body.allowGravity = true;
         this.bird.alive = true;
@@ -85,7 +116,7 @@ BasicGame.Game.prototype = {
         this.pipeGenerator.timer.start();
 
         this.instructionGroup.destroy();
-        this.scoreText.visible = true;
+        this.scoreGroup.setAll('visible', true);
     },
     generatePipes: function() {
         var pipeY = this.game.rnd.integerInRange(-100, 100);
@@ -104,6 +135,9 @@ BasicGame.Game.prototype = {
         this.deathHandler();
     },
     deathHandler: function() {
+        this.soundButonOn.visible = !this.game.soundMute;
+        this.soundButonOff.visible = this.game.soundMute;
+        this.scoreGroup.setAll('visible', false);
         this.bird.alive = false;
         this.bird.faint();
         this.pipes.forEach(function (pipeGroup) {
@@ -113,6 +147,10 @@ BasicGame.Game.prototype = {
         this.pipes.callAll('stop');
         this.pipeGenerator.timer.stop();
         this.ground.stopScroll();
+
+        var xRabbit = - 837;
+        this.rabbit = this.game.add.sprite(xRabbit, 300,'bigrabbit');
+        this.game.add.tween(this.rabbit).to({x:xRabbit + 500}, 1500, Phaser.Easing.Elastic.Out, true, 1000, 0, false);
 
         this.scoreboard = new Scoreboard(this.game);
         this.game.add.existing(this.scoreboard);

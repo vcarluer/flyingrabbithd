@@ -6,7 +6,7 @@ var PipeGroup = function(game, parent) {
     this.topPipe = new Pipe(this.game, 0, 0, 0);
     this.add(this.topPipe);
 
-    this.bottomPipe = new Pipe(this.game, 0, 756, 1);
+    this.bottomPipe = new Pipe(this.game, 0, 800, 1);
     this.add(this.bottomPipe);
 
     this.hasScored = false;
@@ -28,7 +28,7 @@ PipeGroup.prototype.reset = function(x, y) {
     this.topPipe.reset(0,0);
 
     // Step 2
-    this.bottomPipe.reset(0,756); // Step 2
+    this.bottomPipe.reset(0,800); // Step 2
 
     // Step 3
     this.x = x;

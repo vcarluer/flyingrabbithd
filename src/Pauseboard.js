@@ -53,6 +53,8 @@ var Pauseboard = function(game) {
     this.add(this.homeButton);
 
 
+
+
 	/*this.ga = this.game.add.button(this.game.width/2, 360, 'ga', this.gotoGA, this);
 	this.ga.anchor.setTo(0.5, 0);
 

@@ -49,9 +49,10 @@ BasicGame.Preloader.prototype = {
 		this.load.image('play', 'images/control-play.png');
 		this.load.image('instructions', 'images/instructions.png');
 		this.load.image('getReady', 'images/get-ready.png');
+        this.load.image('star', 'images/star.png');
 
 		this.load.spritesheet('pipe', 'images/pipes.png', 121,608,2);
-        this.load.spritesheet('rabbit', 'images/rabbit.png', 53, 53, 9);
+        this.load.spritesheet('rabbit', 'images/rabbit.png', 120, 120, 9);
 
 		// TO CHANGE!!!!!!!!!
 		// http://kvazars.com/littera/
@@ -65,7 +66,7 @@ BasicGame.Preloader.prototype = {
 
 		this.load.image('scoreboard', 'images/scoreboard.png');
 		this.load.image('gameover', 'images/gameover.png');
-		this.load.spritesheet('medals', 'images/medals.png', 44, 46, 2);
+		this.load.spritesheet('medals', 'images/medals.png', 111, 136, 3);
 		this.load.image('particle', 'images/particle.png');
 
 		// See update below if music is added

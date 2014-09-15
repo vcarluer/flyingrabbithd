@@ -3,23 +3,26 @@ var Scoreboard = function(game) {
 	var gameover;
 
 	Phaser.Group.call(this, game);
-	gameover = this.create(this.game.width / 2, 100, 'gameover');
-	gameover.anchor.setTo(0.5, 0.5);
 
-	this.scoreboard = this.create(this.game.width / 2, 200, 'scoreboard');
-	this.scoreboard.anchor.setTo(0.5, 0.5);
+	gameover = this.create(this.game.width / 2, 61, 'gameover');
+	gameover.anchor.setTo(0.5, 0);
 
-	this.scoreText = this.game.add.bitmapText(this.scoreboard.width, 180, 'gameFont', '', 34);
+	this.scoreboard = this.create(this.game.width / 2, 170, 'scoreboard');
+	this.scoreboard.anchor.setTo(0.5, 0);
+
+	this.scoreText = this.game.add.bitmapText(this.scoreboard.width + 50, 280, 'gameFont', '', 34);
 	this.add(this.scoreText);
 
-	this.bestScoreText = this.game.add.bitmapText(this.scoreboard.width, 230, 'gameFont', '', 34);
+	this.bestScoreText = this.game.add.bitmapText(this.scoreboard.width + 50, 365, 'gameFont', '', 34);
 	this.add(this.bestScoreText);
 
 	// add our start button with a callback
-	this.startButton = this.game.add.button(this.game.width/2, 300, 'play', this.startClick, this);
-	this.startButton.anchor.setTo(0.5,0.5);
+	this.startButton = this.game.add.button(this.game.width/2, 441, 'play', this.startClick, this);
+	this.startButton.anchor.setTo(0.5,0);
 
 	this.add(this.startButton);
+
+
 
 	this.y = this.game.height;
 	this.x = 0;
@@ -59,16 +62,19 @@ Scoreboard.prototype.show = function(score) {
 
 	// Step 5 & 6
 	// original flappy bird 10 copper 25 silver 50 gold
-	if(score >= 10 && score < 20)
-	{
-		medal = this.game.add.sprite(-65 , 7, 'medals', 0);
+	if(score >= 0 && score < 25) {
+		medal = this.game.add.sprite(-80 , 192, 'medals', 0);
 		medal.anchor.setTo(0.5, 0.5);
 		this.scoreboard.addChild(medal);
-	} else if(score >= 20) {
-		medal = this.game.add.sprite(-65 , 7, 'medals', 1);
+	} else if(score >= 25 && score < 50) {
+		medal = this.game.add.sprite(-92 , 190, 'medals', 1);
 		medal.anchor.setTo(0.5, 0.5);
 		this.scoreboard.addChild(medal);
-	}
+	} else if(score >= 50) {
+        medal = this.game.add.sprite(-92 , 190, 'medals', 2);
+        medal.anchor.setTo(0.5, 0.5);
+        this.scoreboard.addChild(medal);
+    }
 
 	// Step 7
 	if (medal) {
@@ -87,10 +93,23 @@ Scoreboard.prototype.show = function(score) {
 		emitter.maxParticleScale = 0.5;
 		emitter.setAll('body.allowGravity', false);
 
-		emitter.start(false, 1000, 1000);
+        medal.scale.setTo(20, 20);
+        medal.visible = false;
+
+        this.emitter = emitter;
+        this.medal = medal;
+        this.event = this.game.time.events.loop(Phaser.Timer.SECOND * 1, this.toto, this);
+        this.event.timer.start();
 
 	}
 	this.game.add.tween(this).to({y: 0}, 1000, Phaser.Easing.Bounce.Out, true);
+};
+
+Scoreboard.prototype.toto = function() {
+    this.event.timer.stop();
+    this.emitter.start(false, 1000, 750);
+    this.medal.visible = true;
+    this.game.add.tween(this.medal.scale).to( { x: 1, y: 1 }, 1000, Phaser.Easing.Bounce.Out, true, 0, 0, false);
 };
 
 Scoreboard.prototype.startClick = function() {
