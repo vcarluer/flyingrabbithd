@@ -42,7 +42,9 @@ BasicGame.Preloader.prototype = {
 		this.load.image('soundOn', 'images/control-sound-on.png');
 		this.load.image('soundOff', 'images/control-sound-off.png');
 
-        this.load.image('background', 'images/background.png');
+        this.load.image('backgroundMoutain', 'images/backgroundMoutain.png');
+        this.load.image('backgroundForest', 'images/backgroundForest.png');
+        this.load.image('backgroundHill', 'images/backgroundHill.png');
         this.load.image('bigrabbit', 'images/bigrabbit.png');
         this.load.image('ground', 'images/ground.png');
         this.load.image('title', 'images/title.png');

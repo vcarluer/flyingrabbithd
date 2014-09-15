@@ -32,7 +32,12 @@ BasicGame.Game.prototype = {
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
         this.game.physics.arcade.gravity.y = 1200;
         // add the background sprite
-        this.background = this.game.add.sprite(0,0,'background');
+        this.background = this.add.sprite(0, 0, 'backgroundMoutain');
+        this.backgroundForest = this.game.add.tileSprite(0, 0, 640, 960, 'backgroundForest');
+        this.backgroundForest.autoScroll(-27, 0);
+
+        this.backgroundHill = this.game.add.tileSprite(0, 0, 640, 960, 'backgroundHill');
+        this.backgroundHill.autoScroll(-111, 0);
 
         // Create a new bird object
         this.bird = new Rabbit(this.game, 222, this.game.height/2);
@@ -147,6 +152,8 @@ BasicGame.Game.prototype = {
         this.pipes.callAll('stop');
         this.pipeGenerator.timer.stop();
         this.ground.stopScroll();
+        this.backgroundForest.stopScroll();
+        this.backgroundHill.stopScroll();
 
         var xRabbit = - 837;
         this.rabbit = this.game.add.sprite(xRabbit, 300,'bigrabbit');

@@ -23,7 +23,12 @@ BasicGame.MainMenu.prototype = {
 			this.music.play();
 		}
 
-        this.background = this.add.sprite(0, 0, 'background');
+        this.background = this.add.sprite(0, 0, 'backgroundMoutain');
+        this.backgroundForest = this.game.add.tileSprite(0, 0, 640, 960, 'backgroundForest');
+        this.backgroundForest.autoScroll(-27, 0);
+
+        this.backgroundHill = this.game.add.tileSprite(0, 0, 640, 960, 'backgroundHill');
+        this.backgroundHill.autoScroll(-111, 0);
 
         this.ground = this.game.add.tileSprite(0, 756, 640, 213, 'ground');
         this.ground.autoScroll(-444, 0);
@@ -122,7 +127,6 @@ BasicGame.MainMenu.prototype = {
 		}
 
 		this.menuSelect.destroy();
-		this.background.destroy();
 		this.ground.destroy();
 		this.title.destroy();
 		this.rabbit.destroy();
