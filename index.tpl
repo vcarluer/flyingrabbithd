@@ -1,7 +1,9 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-	<title>Gamers Associate Full Screen Mobile portrait template</title>
+	<!-- build:title -->
+	<title>Game title replaced by gulp</title>
+	<!-- endbuild -->
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="chrome=1, IE=9">
 	<meta name="format-detection" content="telephone=no">
@@ -31,22 +33,9 @@
 	<link rel="apple-touch-icon" sizes="512x512" href="icons/app_icon_512x512.png">
 	<link rel="apple-touch-icon" sizes="1024x1024" href="icons/app_icon_1024x1024.png">
 	<link rel="stylesheet" href="css/stylesheet.css" type="text/css" charset="utf-8" />
-	<script src="js/phaser.min.js"></script>
-	<script src="src/Boot.js"></script>
-	<script src="src/Preloader.js"></script>
-	<script src="src/MainMenu.js"></script>
-	<script src="src/Game.js"></script>
-	<script src="src/GamersAssociate.js"></script>
-	<script src="src/CheckOrientation.js"></script>
-	<script src="src/Scoreboard.js"></script>
-	<script src="src/Rabbit.js"></script>
-	<script src="src/Ground.js"></script>
-	<script src="src/Pipe.js"></script>
-	<script src="src/PipeGroup.js"></script>
-	<script src="src/Main.js"></script>
+	<script src="js/game.js"></script>
 </head>
 <body>
-
 	<div id="game"></div>
 	<div id="orientation"></div>
 </body>
