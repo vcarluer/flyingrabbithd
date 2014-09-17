@@ -11,7 +11,9 @@
 	<meta name="robots" content="noindex,nofollow" />
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<!-- build:appletitle -->
 	<meta name="apple-mobile-web-app-title" content="GA game">
+	<!-- endbuild -->
 	<meta name="viewport" content="initial-scale=1 maximum-scale=1 user-scalable=0 minimal-ui" />
 	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 	<!-- non-retina iPhone pre iOS 7 -->

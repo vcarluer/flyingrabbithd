@@ -38,6 +38,10 @@ gulp.task('replaceTitle', function() {
 			'title': {
 				src: gameName,
 				tpl: '<title>%s</title>'
+			},		
+			'appletitle': {
+				src: gameName,
+				tpl: '<meta name="apple-mobile-web-app-title" content="%s">'
 			}
 		}))
 	.pipe(rename(templateTarget))
